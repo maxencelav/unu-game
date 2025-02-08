@@ -1,40 +1,35 @@
-# Use an official Node runtime as the base image
+# Use an official Node.js LTS image as the base
 FROM node:lts
 
-ENV NPM_CONFIG_UPDATE_NOTIFIER=false
-ENV NPM_CONFIG_FUND=false
-ENV NODE_ENV=production
-
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /usr/app
 
-# Copy package.json and package-lock.json for frontend and backend
-COPY frontend/package*.json ./frontend/
-COPY backend/package*.json ./backend/
+# Copy only package files first to leverage Docker caching
+COPY frontend/package*.json frontend/
+COPY backend/package*.json backend/
 
-# Install dependencies for the frontend
+# Install dependencies for frontend
 WORKDIR /usr/app/frontend
-RUN npm install
+RUN rm -rf node_modules package-lock.json && \
+    npm cache clean --force && \
+    npm install --no-optional --legacy-peer-deps && \
+    npm install --force @rollup/rollup-linux-x64-gnu
 
-# Install dependencies for the backend
+# Install dependencies for backend
 WORKDIR /usr/app/backend
-RUN npm install
+RUN rm -rf node_modules package-lock.json && \
+    npm cache clean --force && \
+    npm install --no-optional --legacy-peer-deps
 
-# Set the working directory back to root
+# Copy the rest of the application
 WORKDIR /usr/app
-
-# Copy the rest of the application code
 COPY . .
 
-# Environment variables for Vite and Node.js runtime
-ARG VITE_WS_URL
-ARG WS_PORT
-
 # Build the frontend
-RUN cd frontend && npm run build
+RUN cd frontend && npm rebuild esbuild && npm rebuild rollup && npm run build
 
-# Expose the port the app runs on
+# Expose the port (change as needed)
 EXPOSE 8080
 
-# Command to run the application
+# Start the backend
 CMD ["node", "backend/index.js"]
