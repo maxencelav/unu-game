@@ -8,19 +8,9 @@ ENV NODE_ENV=production
 # Set the working directory in the container
 WORKDIR /usr/app
 
-# Copy package.json and package-lock.json for both backend and frontend
-COPY package*.json ./
+# Copy package.json and package-lock.json for frontend and backend
 COPY frontend/package*.json ./frontend/
 COPY backend/package*.json ./backend/
-
-# Clear npm cache and remove node_modules if they exist
-RUN npm cache clean --force && \
-    rm -rf node_modules && \
-    rm -rf frontend/node_modules && \
-    rm -rf backend/node_modules
-
-# Install dependencies for the root
-RUN npm install
 
 # Install dependencies for the frontend
 WORKDIR /usr/app/frontend
