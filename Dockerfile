@@ -8,6 +8,10 @@ WORKDIR /usr/app
 COPY frontend/package*.json frontend/
 COPY backend/package*.json backend/
 
+# Set environment variables for the frontend
+ARG VITE_WS_URL
+ENV VITE_WS_URL=$VITE_WS_URL
+
 # Install dependencies for frontend
 WORKDIR /usr/app/frontend
 RUN rm -rf node_modules package-lock.json && \
