@@ -6,7 +6,7 @@ ENV NPM_CONFIG_FUND=false
 ENV NODE_ENV=production
 
 # Set the working directory in the container
-WORKDIR /
+WORKDIR /usr/app
 
 # Copy package.json and package-lock.json for both backend and frontend
 COPY package*.json ./
@@ -23,15 +23,15 @@ RUN npm cache clean --force && \
 RUN npm install
 
 # Install dependencies for the frontend
-WORKDIR /frontend
+WORKDIR /usr/app/frontend
 RUN npm install
 
 # Install dependencies for the backend
-WORKDIR /backend
+WORKDIR /usr/app/backend
 RUN npm install
 
 # Set the working directory back to root
-WORKDIR /
+WORKDIR /usr/app
 
 # Copy the rest of the application code
 COPY . .
