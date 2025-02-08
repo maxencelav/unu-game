@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'preact/hooks'
-import './app.css'
+import { useState, useEffect } from 'preact/hooks';
+import './app.css';
 
 export function App() {
   const [socket, setSocket] = useState(null);
@@ -7,10 +7,10 @@ export function App() {
   const [input, setInput] = useState('');
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8080');
+    const ws = new WebSocket(import.meta.env.VITE_WS_URL);
     ws.binaryType = 'arraybuffer';
     setSocket(ws);
-  
+
     ws.onmessage = (event) => {
       if (event.data instanceof ArrayBuffer) {
         const decoder = new TextDecoder('utf-8');
@@ -20,16 +20,15 @@ export function App() {
         setMessages((prev) => [...prev, event.data]);
       }
     };
-  
+
     ws.onclose = () => {
       console.log('WebSocket connection closed');
     };
-  
+
     return () => {
       ws.close();
     };
   }, []);
-  
 
   const sendMessage = () => {
     if (socket && input) {

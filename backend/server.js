@@ -1,5 +1,15 @@
+require('dotenv').config();
+
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+const WEBSOCKET_URL = process.env.WEBSOCKET_URL || 'ws://localhost:3000';
+
 const WebSocket = require('ws');
-const server = new WebSocket.Server({ port: 8080 });
+const port = process.env.WS_PORT || 8080;
+const server = new WebSocket.Server({ port });
 
 server.on('connection', socket => {
   console.log('Client connected');
@@ -19,4 +29,6 @@ server.on('connection', socket => {
   });
 });
 
-console.log('WebSocket server is running on ws://localhost:8080');
+http.listen(3000, () => {
+  console.log(`Server is running on ${WEBSOCKET_URL}`);
+});
