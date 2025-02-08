@@ -13,6 +13,12 @@ COPY package*.json ./
 COPY frontend/package*.json ./frontend/
 COPY backend/package*.json ./backend/
 
+# Clear npm cache and remove node_modules if they exist
+RUN npm cache clean --force && \
+    rm -rf node_modules && \
+    rm -rf frontend/node_modules && \
+    rm -rf backend/node_modules
+
 # Install dependencies
 RUN npm install && \
     cd frontend && npm install && cd .. && \
