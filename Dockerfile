@@ -32,4 +32,4 @@ RUN cd frontend && npm rebuild esbuild && npm rebuild rollup && npm run build
 EXPOSE 8080
 
 # Start the backend
-CMD ["node", "backend/index.js"]
+CMD ["node", "backend/server.js"]
