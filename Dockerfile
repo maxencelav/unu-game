@@ -1,5 +1,5 @@
 # Use an official Node runtime as the base image
-FROM node:alpine
+FROM node:lts
 
 ENV NPM_CONFIG_UPDATE_NOTIFIER=false
 ENV NPM_CONFIG_FUND=false
