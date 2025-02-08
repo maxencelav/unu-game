@@ -19,10 +19,19 @@ RUN npm cache clean --force && \
     rm -rf frontend/node_modules && \
     rm -rf backend/node_modules
 
-# Install dependencies
-RUN npm install && \
-    cd frontend && npm install && cd .. && \
-    cd backend && npm install && cd ..
+# Install dependencies for the root
+RUN npm install
+
+# Install dependencies for the frontend
+WORKDIR /frontend
+RUN npm install
+
+# Install dependencies for the backend
+WORKDIR /backend
+RUN npm install
+
+# Set the working directory back to root
+WORKDIR /
 
 # Copy the rest of the application code
 COPY . .
