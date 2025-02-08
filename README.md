@@ -15,12 +15,12 @@
 
 1. Create a `.env` file in the `backend` directory and add the following:
    ```
-   WEBSOCKET_URL=ws://localhost:3000
+   WS_PORT=8080
    ```
 
 2. Create a `.env` file in the `frontend` directory and add the following:
    ```
-   VITE_WEBSOCKET_URL=ws://localhost:3000
+   VITE_WEBSOCKET_URL=ws://localhost:8080
    ```
 
 ### Running the Application
