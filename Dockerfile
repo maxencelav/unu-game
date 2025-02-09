@@ -1,10 +1,11 @@
 # Use an official Node.js LTS image as the base
 FROM node:lts
 
-# Set environment variables for the frontend
-ARG VITE_WS_URL
-ENV VITE_WS_URL=${VITE_WS_URL}
-RUN echo "VITE_WS_URL: $VITE_WS_URL"
+ARG RAILWAY_TCP_PROXY_DOMAIN
+RUN echo $RAILWAY_TCP_PROXY_DOMAIN
+
+ARG RAILWAY_TCP_PROXY_PORT
+RUN echo $RAILWAY_TCP_PROXY_PORT
 
 # Set the working directory
 WORKDIR /usr/app
