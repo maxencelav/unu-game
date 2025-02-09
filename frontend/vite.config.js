@@ -1,9 +1,8 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 
 // https://vite.dev/config/
 export default defineConfig(({mode}) => {
-  const env = loadEnv(mode, process.cwd(), '')
 
   return {
     plugins: [preact()],
@@ -12,7 +11,8 @@ export default defineConfig(({mode}) => {
       emptyOutDir: false,
     },
     define: {
-      'WS_URL': env.RAILWAY_TCP_PROXY_DOMAIN ? `wss://${env.RAILWAY_TCP_PROXY_DOMAIN}:${RAILWAY_TCP_PROXY_PORT}` : `wss://${location.host}:8080`,
+      // access RAILWAY_TCP_PROXY_DOMAIN  & RAILWAY_TCP_PROXY_PORT
+      'WS_URL': process.env.RAILWAY_TCP_PROXY_DOMAIN ? `ws://${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}` : 'ws://localhost:8080',
     },
   }
 })
