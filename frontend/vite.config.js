@@ -7,5 +7,8 @@ export default defineConfig({
   build: {
     outDir: "../backend/public",
     emptyOutDir: false,
-  }
+  },
+  define: {
+    'import.meta.env.VITE_WS_URL': JSON.stringify(process.env.VITE_WS_URL),
+  },
 })

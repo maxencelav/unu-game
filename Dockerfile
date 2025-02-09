@@ -13,7 +13,6 @@ WORKDIR /usr/app
 COPY frontend/package*.json frontend/
 COPY backend/package*.json backend/
 
-
 # Install dependencies for frontend
 WORKDIR /usr/app/frontend
 RUN rm -rf node_modules package-lock.json && \
