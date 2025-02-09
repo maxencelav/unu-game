@@ -12,7 +12,7 @@ export default defineConfig(({mode}) => {
     },
     define: {
       // access RAILWAY_TCP_PROXY_DOMAIN  & RAILWAY_TCP_PROXY_PORT
-      'WS_URL': process.env.RAILWAY_TCP_PROXY_DOMAIN ? `ws://${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}` : 'ws://localhost:8080',
+      'WS_URL': JSON.stringify(process.env.RAILWAY_TCP_PROXY_DOMAIN ? `ws://${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}` : 'ws://localhost:8080'),
     },
   }
 })
