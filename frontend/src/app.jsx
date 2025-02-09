@@ -8,8 +8,8 @@ export function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // use import.meta.env.VITE_WS_URL to get the WebSocket URL or fallback to current host with wss protocol and port 8080
-    const ws = new WebSocket(import.meta.env.VITE_WS_URL || `wss://${location.host}:8080`);
+    // use WS_URL to get the WebSocket URL
+    const ws = new WebSocket(WS_URL);
     ws.binaryType = 'arraybuffer';
     setSocket(ws);
 
