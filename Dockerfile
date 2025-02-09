@@ -1,17 +1,17 @@
 # Use an official Node.js LTS image as the base
 FROM node:lts
 
+# Set environment variables for the frontend
+ARG VITE_WS_URL
+ENV VITE_WS_URL=${VITE_WS_URL}
+RUN echo "VITE_WS_URL: $VITE_WS_URL"
+
 # Set the working directory
 WORKDIR /usr/app
 
 # Copy only package files first to leverage Docker caching
 COPY frontend/package*.json frontend/
 COPY backend/package*.json backend/
-
-# Set environment variables for the frontend
-ARG VITE_WS_URL
-ENV VITE_WS_URL=${VITE_WS_URL}
-RUN echo "VITE_WS_URL: $VITE_WS_URL"
 
 
 # Install dependencies for frontend
