@@ -10,7 +10,9 @@ COPY backend/package*.json backend/
 
 # Set environment variables for the frontend
 ARG VITE_WS_URL
-ENV VITE_WS_URL=$VITE_WS_URL
+ENV VITE_WS_URL=${VITE_WS_URL}
+RUN echo "VITE_WS_URL: $VITE_WS_URL"
+
 
 # Install dependencies for frontend
 WORKDIR /usr/app/frontend
